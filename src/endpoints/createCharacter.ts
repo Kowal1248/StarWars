@@ -17,6 +17,6 @@ export const handler = middy(async (event: APIGatewayProxyEvent): Promise<APIGat
 
     return { statusCode: 201, body: JSON.stringify(result) }
   } catch (error) {
-    return errorHandler(error)
+    return errorHandler(error,'CreateEndpoint')
   }
 })

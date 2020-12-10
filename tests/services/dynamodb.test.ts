@@ -23,9 +23,9 @@ describe('service dynamodb tests', () => {
     })
 
     it('should return all person by id', async () => {
-        const todos = await new DynamoDB().getCharacterById(CHARACTER_ID);
+        const characters = await new DynamoDB().getCharacterById(CHARACTER_ID);
 
-        expect(todos.length).toBeGreaterThan(0);
+        expect(characters.length).toBeGreaterThan(0);
     })
 
     it('should update a person', async () => {

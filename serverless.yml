@@ -23,7 +23,7 @@ custom:
       groups:
         sources:
           - table: ${self:provider.environment.CHARACTERS_TABLE}
-            sources: [./seeds/todos.json]
+            sources: [./seeds/default.json]
     stages:
     - dev
 

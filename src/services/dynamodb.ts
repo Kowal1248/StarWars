@@ -28,12 +28,12 @@ export default class DynamoDB {
 
   constructor(
     private readonly docClient: DocumentClient = _createDynamoDBClient(),
-    private readonly todoTable = process.env.CHARACTERS_TABLE || 'Starwars-dev',
+    private readonly charactersTable = process.env.CHARACTERS_TABLE || 'Starwars-dev',
   ) { }
 
   async getCharacterById(characterId: string): Promise<CharacterItem[]> {
     const result = await this.docClient.query({
-      TableName: this.todoTable,
+      TableName: this.charactersTable,
       KeyConditionExpression: 'characterId = :characterId',
       ExpressionAttributeValues: {
         ':characterId': characterId
@@ -46,7 +46,7 @@ export default class DynamoDB {
 
   async getAllCharacters(characterId: string): Promise<CharacterItem[]> {
     let params;
-    const TableName = this.todoTable
+    const TableName = this.charactersTable
     const Limit = 10;
 
     if (characterId) params = { TableName, Limit, ExclusiveStartKey: { characterId } }
@@ -57,20 +57,20 @@ export default class DynamoDB {
     return result.Items as CharacterItem[]
   }
 
-  async createCharacter(todo: CharacterItem): Promise<CharacterItem> {
+  async createCharacter(character: CharacterItem): Promise<CharacterItem> {
 
     await this.docClient.put({
-      TableName: this.todoTable,
-      Item: todo
+      TableName: this.charactersTable,
+      Item: character
     }).promise()
 
-    return todo
+    return character
   }
 
   async updateCharacter(updateRequest: UpdateCharacterRequest): Promise<CharacterItem> {
 
     const updated = await this.docClient.update({
-      TableName: this.todoTable,
+      TableName: this.charactersTable,
       Key: { 'characterId': updateRequest.characterId },
       UpdateExpression: 'set #name = :name, #episodes = :episodes, #friends = :friends',
       ExpressionAttributeNames: {
@@ -91,7 +91,7 @@ export default class DynamoDB {
 
   async deleteCharacter(characterId: string) {
     return this.docClient.delete({
-      TableName: this.todoTable,
+      TableName: this.charactersTable,
       Key: { 'characterId': characterId }
     }).promise()
   }
