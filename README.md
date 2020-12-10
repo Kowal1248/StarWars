@@ -15,21 +15,21 @@ Simply CRUD system only on backend side.
 ### Architecture
 [![serverless](serverless "serverless")](https://miro.medium.com/max/1272/1*MFvtJPjmug6qbWa92mp5UA.png "serverless")
 
-Descriptions:
+**Descriptions:**
 Here I used standard SOLID, KISS and AWS architecture-well practices. But in my opinion better is use other database - dynamoDB is not well.
 In my opinion better is use MongoDB where we have a really great driver to control data (mongoose).
 
-IaC:
+**IaC:**
 Is included in serverless.yml -> from this file our framework will convert it to cloudFormation script and send to aws.
 
-Test:
+**Test:**
 For test I used Jest - to check only services function.
 Also to check endpoints I used PostMan -> /test/starwars.postman_collection.json.
 
-ApiDoc:
+**ApiDoc:**
 Here I generate a file with our API from our server. It's availablein directory /doc/index.html + swagger.yml. Right now you can check it without run server.
 
-Folder structure:
+**Folder structure:**
 - schemas -> schema important for ApiGateway
 - seeds -> default data to DataBase
 - src
