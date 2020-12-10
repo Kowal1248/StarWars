@@ -13,7 +13,7 @@ Simply CRUD system only on backend side.
 ------------
 
 ### Architecture
-[![serverless](serverless "serverless")](https://miro.medium.com/max/1272/1*MFvtJPjmug6qbWa92mp5UA.png "serverless")
+![](https://miro.medium.com/max/1272/1*MFvtJPjmug6qbWa92mp5UA.png)
 
 **Descriptions:**
 Here I used standard SOLID, KISS and AWS architecture-well practices. But in my opinion better is use other database - dynamoDB is not well.
