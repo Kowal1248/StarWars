@@ -1,0 +1,46 @@
+{
+  "name": "starwars",
+  "version": "1.0.0",
+  "description": "Starwars application",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "aws-xray-sdk": "^3.0.1",
+    "http-errors": "^1.7.2",
+    "middy": "^0.27.1",
+    "serverless-swagger-api": "^1.4.2",
+    "source-map-support": "^0.5.11",
+    "uuid": "^3.3.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@jest/globals": "^26.0.1",
+    "@shelf/jest-dynamodb": "^1.7.0",
+    "@types/aws-lambda": "^8.10.17",
+    "@types/jest": "^25.2.2",
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/node": "^10.17.21",
+    "@types/uuid": "^7.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "aws-sdk": "^2.433.0",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "jest": "^26.0.1",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-iam-roles-per-function": "^1.0.4",
+    "serverless-offline": "^6.1.5",
+    "serverless-plugin-canary-deployments": "^0.4.7",
+    "serverless-reqvalidator-plugin": "^1.0.3",
+    "serverless-webpack": "^5.2.0",
+    "ts-jest": "^26.0.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.9.2",
+    "webpack": "^4.29.6"
+  },
+  "author": "Dawid Kowalczyk",
+  "license": "MIT"
+}

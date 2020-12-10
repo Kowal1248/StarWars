@@ -1,0 +1,190 @@
+service:
+  name: serverless-startwars-app
+
+plugins:
+  - serverless-webpack
+  - serverless-iam-roles-per-function
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  serverless-offline:
+    httpPort: 3003
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      groups:
+        sources:
+          - table: ${self:provider.environment.CHARACTERS_TABLE}
+            sources: [./seeds/todos.json]
+    stages:
+    - dev
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+  tracing:
+    lambda: true
+    apiGateway: true
+
+  environment:
+    CHARACTERS_TABLE: Starwars-2-${self:provider.stage}
+    SECOND_USER_ID_INDEX: SecondUserIdIndex
+    SIGNED_URL_EXPIRATION: 300
+    AWS_XRAY_CONTEXT_MISSING: LOG_ERROR
+    _X_AMZN_TRACE_ID: log
+
+
+functions:
+  GetAllCharacters:
+    handler: src/endpoints/getAllCharacters.handler
+    events:
+      - http:
+          method: get
+          path: characters
+          request:
+            parameters:
+              querystring:
+                lastSearch: true
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - "xray:PutTraceSegments"
+        Resource:
+          - "*"
+
+  GetOneCharacters:
+    handler: src/endpoints/getOneCharacters.handler
+    events:
+      - http:
+          method: get
+          path: characters/{characterId}
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Query
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - "xray:PutTraceSegments"
+        Resource:
+          - "*"
+
+  CreateCharacter:
+    handler: src/endpoints/createCharacter.handler
+    events:
+      - http:
+          method: post
+          path: characters
+          cors: true
+          request:
+            schema:
+              application/json: ${file(schemas/createRequest.json)}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - "xray:PutTraceSegments"
+        Resource:
+          - "*"
+
+  UpdateTodo:
+    handler: src/endpoints/updateCharacters.handler
+    events:
+      - http:
+          method: put
+          path: characters/{characterId}
+          cors: true
+          request:
+            schema:
+              application/json: ${file(schemas/updateRequest.json)}
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:UpdateItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - "xray:PutTraceSegments"
+        Resource:
+          - "*"
+
+  deleteCharacter:
+    handler: src/endpoints/deleteCharacter.handler
+    events:
+      - http:
+          method: delete
+          path: characters/{characterId}
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:DeleteItem
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CHARACTERS_TABLE}
+      - Effect: "Allow"
+        Action:
+          - "xray:PutTraceSegments"
+        Resource:
+          - "*"
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: AWS::ApiGateway::GatewayResponse
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+          gatewayresponse.header.Access-Control-Allow-Methods: "'GET,OPTIONS,POST'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: ApiGatewayRestApi
+
+    TodosDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.CHARACTERS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: characterId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: characterId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_IMAGE
+        GlobalSecondaryIndexes:
+          - IndexName: ${self:provider.environment.SECOND_USER_ID_INDEX}
+            KeySchema:
+            - AttributeName: characterId
+              KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1

@@ -1,0 +1,55 @@
+[{
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0398",
+    "name": "Luke Skywalker-1",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0399",
+    "name": "Darth Vader-1",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Wilhuff Tarkin"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0400",
+    "name": "Han Solo-1",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Luke Skywalker", "Leia Organa", "R2-D2"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0401",
+    "name": "Luke Skywalker-2",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0402",
+    "name": "Darth Vader-2",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Wilhuff Tarkin"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0403",
+    "name": "Han Solo-2",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Luke Skywalker", "Leia Organa", "R2-D2"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0404",
+    "name": "Luke Skywalker-3",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Han Solo", "Leia Organa", "C-3PO", "R2-D2"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0405",
+    "name": "Darth Vader-3",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Wilhuff Tarkin"]
+  },
+  {
+    "characterId": "6f0cc80c-a2e9-4078-8d6f-70c5941e0406",
+    "name": "Han Solo-3",
+    "episodes": ["NEWHOPE", "EMPIRE", "JEDI"],
+    "friends": ["Luke Skywalker", "Leia Organa", "R2-D2"]
+  }
+]
