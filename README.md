@@ -16,8 +16,12 @@ Simply CRUD system only on backend side.
 ![](https://miro.medium.com/max/1272/1*MFvtJPjmug6qbWa92mp5UA.png)
 
 **Descriptions:**
-Here I used standard SOLID, KISS and AWS architecture-well practices. But in my opinion better is use other database - dynamoDB is not well.
+Here I used standard SOLID, KISS and AWS architecture-well practices.
+But in my opinion better is use other database - dynamoDB is not well.
 In my opinion better is use MongoDB where we have a really great driver to control data (mongoose).
+
+**ServerLess**
+On offline mode serverless will make a simulator for ApiGateway and Lambda. From that you can test it without deploy on AWS :)
 
 **IaC:**
 Is included in serverless.yml -> from this file our framework will convert it to cloudFormation script and send to aws.
@@ -30,6 +34,7 @@ Also to check endpoints I used PostMan -> /test/starwars.postman_collection.json
 Here I generate a file with our API from our server. It's availablein directory /doc/index.html + swagger.yml. Right now you can check it without run server.
 
 **Folder structure:**
+- doc -> Documentation about API
 - schemas -> schema important for ApiGateway
 - seeds -> default data to DataBase
 - src
@@ -56,5 +61,5 @@ If you want check a correct configure part use `sls --noDeploy`
 
 ### Listening
 Lambda:  http://localhost:3002/
-NodeJs: http://localhost:3003/
+Endpoints: http://localhost:3003/dev
 DynamoDB: http://localhost:8000/
